@@ -40,25 +40,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void handleAChange(String value) {
     setState(() {
-      this._a = double.parse(value ?? 0.0);
+      this._a = double.parse(value != '' ? value : 0.0);
     });
   }
 
   void handleBChange(String value) {
     setState(() {
-      this._b = double.parse(value ?? 0.0);
+      this._b = double.parse(value != '' ? value : 0.0);
     });
   }
 
   void handleCChange(String value) {
     setState(() {
-      this._c = double.parse(value ?? 0.0);
+      this._c = double.parse(value != '' ? value : 0.0);
     });
   }
 
   void handleDChange(String value) {
     setState(() {
-      this._d = double.parse(value ?? 0.0);
+      this._d = double.parse(value != '' ? value : 0.0);
     });
   }
 
@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         border: OutlineInputBorder(
                           borderSide: BorderSide(width: 2.0),
                         )),
-                        onChanged: this.handleAChange,
+                    onChanged: this.handleAChange,
                   ),
                 ),
                 Container(
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         border: OutlineInputBorder(
                           borderSide: BorderSide(width: 2.0),
                         )),
-                        onChanged: this.handleBChange,
+                    onChanged: this.handleBChange,
                   ),
                 ),
               ],
@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         border: OutlineInputBorder(
                           borderSide: BorderSide(width: 2.0),
                         )),
-                        onChanged: this.handleCChange,
+                    onChanged: this.handleCChange,
                   ),
                 ),
                 Container(
@@ -149,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         border: OutlineInputBorder(
                           borderSide: BorderSide(width: 2.0),
                         )),
-                        onChanged: this.handleDChange,
+                    onChanged: this.handleDChange,
                   ),
                 ),
               ],
