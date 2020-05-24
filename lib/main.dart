@@ -44,6 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double _margin = 10.0;
 
   double _result = 0;
+  String _errorMessage = '';
 
   var _aText = TextEditingController();
   var _bText = TextEditingController();
@@ -85,17 +86,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _calculate() {
     removeFocus(context);
-    setState(() {
-      if (_a == 0) {
-        this._result = _b * _c / _d;
-      } else if (_b == 0) {
-        this._result = _a * _d / _c;
-      } else if (_c == 0) {
-        this._result = _a * _d / _b;
-      } else {
-        this._result = _b * _c / _a;
-      }
-    });
+    if (validate()) {
+      setState(() {
+        if (_a == 0) {
+          this._result = _b * _c / _d;
+        } else if (_b == 0) {
+          this._result = _a * _d / _c;
+        } else if (_c == 0) {
+          this._result = _a * _d / _b;
+        } else {
+          this._result = _b * _c / _a;
+        }
+        this._errorMessage = '';
+      });
+    } else {
+      setState(() {
+        this._errorMessage =
+            'Please enter any 3 values to determine the output';
+      });
+    }
+  }
+
+  bool validate() {
+    return [_a, _b, _c, _d].where((item) => item > 0).toList().length == 3;
   }
 
   void _reset() {
@@ -106,6 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
       this._cText.clear();
       this._dText.clear();
       this._result = 0;
+      this._errorMessage = '';
     });
   }
 
@@ -123,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
               margin: EdgeInsets.symmetric(vertical: 30.0),
               child: Text('A : B = C : D',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 24.0,
                     fontWeight: FontWeight.w600,
                   ))),
           Container(
@@ -249,16 +263,29 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(vertical: 20.0),
-            child: Text('Result',
+            margin: this._errorMessage == ''
+                ? EdgeInsets.symmetric(vertical: 0)
+                : EdgeInsets.only(
+                  top: 30.0,
+                  left: 20.0,
+                  ),
+            child: Text(this._errorMessage,
                 style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
-                  decoration: TextDecoration.underline,
+                  fontSize: 16.0,
+                  color: Colors.red,
                 )),
           ),
           Container(
-            margin: EdgeInsets.symmetric(vertical: 0.0),
+            margin: EdgeInsets.symmetric(vertical: 30.0),
+            child: Text('Result',
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w600,
+                  decoration: TextDecoration.underline,
+                  color: Colors.black87,
+                )),
+          ),
+          Container(
             child: Text('$_result',
                 style: TextStyle(
                   fontSize: 30.0,
