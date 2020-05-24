@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -56,29 +57,33 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void handleAChange(String value) {
     setState(() {
-      this._a = double.parse(value != '' ? value : 0.0);
+      this._a = this._getDoubleValue(value);
     });
   }
 
   void handleBChange(String value) {
     setState(() {
-      this._b = double.parse(value != '' ? value : 0.0);
+      this._b = this._getDoubleValue(value);
     });
   }
 
   void handleCChange(String value) {
     setState(() {
-      this._c = double.parse(value != '' ? value : 0.0);
+      this._c = this._getDoubleValue(value);
     });
   }
 
   void handleDChange(String value) {
     setState(() {
-      this._d = double.parse(value != '' ? value : 0.0);
+      this._d = this._getDoubleValue(value);
     });
   }
 
-  void calculate() {
+  double _getDoubleValue(String value) {
+    return value == '' ? 0 : double.parse(value);
+  }
+
+  void _calculate() {
     removeFocus(context);
     setState(() {
       if (_a == 0) {
@@ -93,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void reset() {
+  void _reset() {
     removeFocus(context);
     setState(() {
       this._aText.clear();
@@ -136,6 +141,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           borderSide: BorderSide(width: 2.0),
                         )),
                     onChanged: this.handleAChange,
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter(RegExp(r'\d+(.\d*)?')),
+                    ],
                   ),
                 ),
                 Container(
@@ -149,6 +157,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           borderSide: BorderSide(width: 2.0),
                         )),
                     onChanged: this.handleBChange,
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter(RegExp(r'\d+(.\d*)?')),
+                    ],
                   ),
                 ),
               ],
@@ -170,6 +181,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           borderSide: BorderSide(width: 2.0),
                         )),
                     onChanged: this.handleCChange,
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter(RegExp(r'\d+(.\d*)?')),
+                    ],
                   ),
                 ),
                 Container(
@@ -183,6 +197,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           borderSide: BorderSide(width: 2.0),
                         )),
                     onChanged: this.handleDChange,
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter(RegExp(r'\d+(.\d*)?')),
+                    ],
                   ),
                 ),
               ],
@@ -203,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: calculate,
+                    onPressed: _calculate,
                     padding: EdgeInsets.symmetric(
                       vertical: 15.0,
                     ),
@@ -221,7 +238,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: reset,
+                    onPressed: _reset,
                     padding: EdgeInsets.symmetric(
                       vertical: 15.0,
                     ),
