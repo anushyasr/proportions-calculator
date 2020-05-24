@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ProportionsCalculator());
 }
 
 void removeFocus(BuildContext context) {
@@ -12,7 +12,7 @@ void removeFocus(BuildContext context) {
   }
 }
 
-class MyApp extends StatelessWidget {
+class ProportionsCalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
