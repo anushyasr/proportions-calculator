@@ -26,27 +26,27 @@ class ProportionsCalculator extends StatelessWidget {
         removeFocus(context);
       },
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Proportions Calculator',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Colors.redAccent,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: MyHomePage(title: 'Proportions Calculator'),
+        home: HomePage(title: 'Proportions Calculator'),
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   double _margin = 10.0;
   var _pattern = RegExp(r'\d+(\.\d*)?');
 
