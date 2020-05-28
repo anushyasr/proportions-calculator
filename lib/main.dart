@@ -15,33 +15,40 @@ void removeFocus(BuildContext context) {
 class ProportionsCalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
+
     return GestureDetector(
       onTap: () {
         removeFocus(context);
       },
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Proportions Calculator',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Colors.redAccent,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: MyHomePage(title: 'Proportions Calculator'),
+        home: HomePage(title: 'Proportions Calculator'),
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   double _margin = 10.0;
+  var _pattern = RegExp(r'\d+(\.\d*)?');
 
   double _result = 0;
   String _errorMessage = '';
@@ -127,6 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: Color.fromRGBO(0xf2, 0xf4, 0xc6, 1),
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -139,6 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.w600,
+                    color: Color.fromRGBO(0x66, 0x66, 0x66, 1),
                   ))),
           Container(
             child: Row(
@@ -156,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         )),
                     onChanged: this.handleAChange,
                     inputFormatters: <TextInputFormatter>[
-                      WhitelistingTextInputFormatter(RegExp(r'\d+(.\d*)?')),
+                      WhitelistingTextInputFormatter(_pattern),
                     ],
                   ),
                 ),
@@ -172,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         )),
                     onChanged: this.handleBChange,
                     inputFormatters: <TextInputFormatter>[
-                      WhitelistingTextInputFormatter(RegExp(r'\d+(.\d*)?')),
+                      WhitelistingTextInputFormatter(_pattern),
                     ],
                   ),
                 ),
@@ -196,7 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         )),
                     onChanged: this.handleCChange,
                     inputFormatters: <TextInputFormatter>[
-                      WhitelistingTextInputFormatter(RegExp(r'\d+(.\d*)?')),
+                      WhitelistingTextInputFormatter(_pattern),
                     ],
                   ),
                 ),
@@ -212,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         )),
                     onChanged: this.handleDChange,
                     inputFormatters: <TextInputFormatter>[
-                      WhitelistingTextInputFormatter(RegExp(r'\d+(.\d*)?')),
+                      WhitelistingTextInputFormatter(_pattern),
                     ],
                   ),
                 ),
@@ -266,9 +275,10 @@ class _MyHomePageState extends State<MyHomePage> {
             margin: this._errorMessage == ''
                 ? EdgeInsets.symmetric(vertical: 0)
                 : EdgeInsets.only(
-                  top: 30.0,
-                  left: 20.0,
+                    top: 30.0,
+                    left: 20.0,
                   ),
+            alignment: Alignment.center,
             child: Text(this._errorMessage,
                 style: TextStyle(
                   fontSize: 16.0,
@@ -282,7 +292,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontSize: 24.0,
                   fontWeight: FontWeight.w600,
                   decoration: TextDecoration.underline,
-                  color: Colors.black87,
+                  color: Color.fromRGBO(0x66, 0x66, 0x66, 1),
                 )),
           ),
           Container(
